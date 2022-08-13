@@ -1,6 +1,7 @@
 import {KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import * as React from "react";
 import {useState} from "react";
+import {Task} from "./Task";
 
 
 const AddTask = ({navigation}) => {
@@ -13,7 +14,7 @@ const AddTask = ({navigation}) => {
             <TextInput style={styles.input} placeholder={'Write your task'}
                        value={task} onChangeText={text => setTask(text)}/>
 
-            <TouchableOpacity onPress={() => navigation.navigate('RemainingTasks', {task: task})}>
+            <TouchableOpacity onPress={() => navigation.navigate('RemainingTasks', {task: new Task(task)})}>
                 <View style={styles.addWrapper}>
                     <Text style={styles.addTask}>Save</Text>
                 </View>

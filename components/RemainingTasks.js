@@ -1,7 +1,7 @@
 import {Button, Dimensions, StyleSheet, TouchableOpacity, View} from "react-native";
 import TaskListView from "./TaskListView";
 import * as React from "react";
-
+import TaskView from "./TaskView";
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -18,10 +18,12 @@ const RemainingTasks = ({navigation, route}) => {
         setTasks(newTasks);
     }
 
-    console.log(tasks);
     if (route.params.task !== '') {
-        setTasks([...tasks, route.params.task]);
-        route.params.task = '';
+        if (route.params.task.name !== '') {
+            setTasks([...tasks, route.params.task]);
+            route.params.task = '';
+        }
+
     }
 
     return (
@@ -54,8 +56,9 @@ const RemainingTasks = ({navigation, route}) => {
                 {
                     tasks.map((item, index) => {
                         return (
-                            <TouchableOpacity key={index} onPress={() => completeTask(index)}>
-                                <TaskListView text={item}/>
+                            // <TouchableOpacity key={index} onPress={() => completeTask(index)}>
+                            <TouchableOpacity key={index} onPress={() => navigation.navigate('TaskView', {task: item})}>
+                                <TaskListView text={item.name}/>
                             </TouchableOpacity>
                         );
                     })
