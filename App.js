@@ -5,6 +5,7 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import AddTask from "./components/AddTask";
 import RemainingTasks from "./components/RemainingTasks";
 import TaskView from "./components/TaskView";
+import taskView from "./components/TaskView";
 
 const Stack = createNativeStackNavigator();
 
@@ -38,7 +39,7 @@ const App = () => {
                     />
                     <Stack.Screen name="Profile" component={CompletedTasks}/>
                     <Stack.Screen name='AddTask' component={AddTask}/>
-                    <Stack.Screen name='TaskView' component={TaskView}/>
+                    <Stack.Screen name='TaskView' component={TaskView} options={{title: TaskView.name}}/>
                     {/*<Stack.Screen name={'Settings'} component={Settings}/>*/}
                 </Stack.Navigator>
             </NavigationContainer>
@@ -57,5 +58,4 @@ const CompletedTasks = ({navigation, route}) => {
 };
 const styles = StyleSheet.create({});
 
-export {RemainingTasks};
 export default App;
