@@ -1,28 +1,42 @@
 import * as React from 'react';
 import {NavigationContainer, useNavigationContainerRef} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Button, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import Task from "./components/Task";
+import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import AddTask from "./components/AddTask";
+import RemainingTasks from "./components/RemainingTasks";
 
 const Stack = createNativeStackNavigator();
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 
 
 const App = () => {
+
     const navigationRef = useNavigationContainerRef();
     return (
         <View style={{flex: 1}}>
             <NavigationContainer ref={navigationRef}>
                 <Stack.Navigator>
                     <Stack.Screen
-                        name="Home"
+                        name="RemainingTasks"
                         component={RemainingTasks}
+                        initialParams={{task: ''}}
                         options={{
-                            headerTitleAlign: 'center', title: 'Tasks'
+                            headerTitleAlign: 'center', title: 'Tasks',
+                            headerRight: () => (
+                                <TouchableOpacity onPress={() => navigationRef.navigate('AddTask')}>
+                                    <Image source={require('./Images/plusIcon.jpg')}
+                                           style={{width: 24, height: 24, marginRight: 16}}/>
+                                </TouchableOpacity>
+                            ),
+                            headerLeft: () => (
+                                <TouchableOpacity onPress={() => navigationRef.current?.navigate('Settings')}>
+                                    <Image source={require('./Images/settingsIcon.jpg')}
+                                           style={{width: 28, height: 28, marginRight: 16}}/>
+                                </TouchableOpacity>
+                            )
                         }}
                     />
                     <Stack.Screen name="Profile" component={CompletedTasks}/>
+                    <Stack.Screen name='AddTask' component={AddTask}/>
                 </Stack.Navigator>
             </NavigationContainer>
 
@@ -31,53 +45,14 @@ const App = () => {
     );
 };
 
-const RemainingTasks = ({navigation}) => {
-    return (
-        <View style={{flex: 1, backgroundColor: "#ffffff"}}>
-            <View style={{
-                flexDirection: 'row', height: windowHeight / 12, padding: 10,
-                alignSelf: 'center', backgroundColor: 'transparent'
-            }}>
-                <View style={{flex: 0.5}}>
-                    <Button
-                        style={styles.button}
-                        color="#ff5c5c"
-                        titleStyle={{fontSize: 66}}
-                        title="Remaining"
-                        onPress={() =>
-                            navigation.navigate('Profile', {name: 'Jane'})
-                        }
-                    />
-                </View>
-                <View style={{flex: 0.5}}>
-                    <Button
-                        title="Finished"
-                        onPress={() =>
-                            navigation.navigate('Profile', {name: 'Jane'})
-                        }
-                    />
-                </View>
-            </View>
-            <View>
-                <Task text={'joe'}/>
-                <Task text={'2'}/>
-            </View>
+
+const CompletedTasks = ({navigation, route}) => {
+    return (<View>
+            <Text>This is {route.params.name}'s profile</Text>
         </View>
     );
 };
+const styles = StyleSheet.create({});
 
-const CompletedTasks = ({navigation, route}) => {
-    return <Text>This is {route.params.name}'s profile</Text>;
-};
-
-const styles = StyleSheet.create({
-    baseText: {
-        fontFamily: "Cochin"
-    },
-    titleText: {
-        fontSize: 20,
-        fontWeight: "bold"
-    }
-});
-
+export {RemainingTasks};
 export default App;
