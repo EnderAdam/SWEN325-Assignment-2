@@ -1,22 +1,28 @@
-import {Button, Dimensions, StyleSheet, View} from "react-native";
-import Task from "./Task";
+import {Button, Dimensions, StyleSheet, TouchableOpacity, View} from "react-native";
+import TaskListView from "./TaskListView";
 import * as React from "react";
 
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-let taskItems = [];
+// let taskItems = [];
 
 const RemainingTasks = ({navigation, route}) => {
-    const handleAddTask = (task) => {
-        if (task !== '') {
-            taskItems = [...taskItems, task];
-        }
+
+    const [tasks, setTasks] = React.useState([]);
+
+    const completeTask = (index) => {
+        let newTasks = [...tasks];
+        newTasks.splice(index, 1);
+        setTasks(newTasks);
     }
 
-    if (route)
-    handleAddTask(route.params.task);
+    console.log(tasks);
+    if (route.params.task !== '') {
+        setTasks([...tasks, route.params.task]);
+        route.params.task = '';
+    }
 
     return (
         <View style={{flex: 1, backgroundColor: "#ffffff"}}>
@@ -46,15 +52,19 @@ const RemainingTasks = ({navigation, route}) => {
             </View>
             <View>
                 {
-                    taskItems.map((item, index) => <Task key={index} text={item}/>)
+                    tasks.map((item, index) => {
+                        return (
+                            <TouchableOpacity key={index} onPress={() => completeTask(index)}>
+                                <TaskListView text={item}/>
+                            </TouchableOpacity>
+                        );
+                    })
                 }
             </View>
         </View>
     );
 };
 
-const styles = StyleSheet.create({
-
-});
+const styles = StyleSheet.create({});
 
 export default RemainingTasks;
