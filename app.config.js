@@ -1,4 +1,4 @@
-{
+export default {
   "expo": {
     "owner": "enderadam",
     "name": "swen3252022a2",
