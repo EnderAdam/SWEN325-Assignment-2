@@ -1,5 +1,5 @@
 import {Button, Dimensions, StyleSheet, TouchableOpacity, View} from "react-native";
-import TaskListView from "./TaskListView";
+import TaskListView from "../components/TaskListView";
 import * as React from "react";
 import TaskView from "./TaskView";
 import useEvent from "react-native-web/dist/modules/useEvent";

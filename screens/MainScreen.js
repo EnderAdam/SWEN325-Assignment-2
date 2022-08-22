@@ -1,8 +1,8 @@
 import {NavigationContainer, useNavigationContainerRef} from "@react-navigation/native";
 import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import RemainingTasks from "../components/RemainingTasks";
-import AddTask from "../components/AddTask";
-import TaskView from "../components/TaskView";
+import RemainingTasks from "./RemainingTasks";
+import AddTask from "./AddTask";
+import TaskView from "./TaskView";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 
 const Stack = createNativeStackNavigator();

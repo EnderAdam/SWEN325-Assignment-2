@@ -1,7 +1,7 @@
 import {KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import * as React from "react";
 import {useState} from "react";
-import {Task} from "./Task";
+import {Task} from "../components/Task";
 import {windowWidth} from "./RemainingTasks";
 
 
