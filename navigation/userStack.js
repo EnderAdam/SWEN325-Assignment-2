@@ -6,6 +6,7 @@ import RemainingTasks from "../screens/RemainingTasks";
 import AddTask from "../screens/AddTask";
 import TaskView from "../screens/TaskView";
 import {auth} from "../config/firebase";
+import DateSelector from "../screens/DateSelector";
 
 const Stack = createStackNavigator();
 
@@ -23,7 +24,7 @@ export default function UserStack() {
                         options={{
                             headerTitleAlign: 'center', title: 'Tasks',
                             headerRight: () => (
-                                <TouchableOpacity onPress={() => navigationRef.navigate('AddTask')}>
+                                <TouchableOpacity onPress={() => navigationRef.navigate('Add a new Task')}>
                                     <Image source={require('../Images/plusIcon.jpg')}
                                            style={{width: 24, height: 24, marginRight: 16}}/>
                                 </TouchableOpacity>
@@ -34,8 +35,9 @@ export default function UserStack() {
                         }}
                     />
                     <Stack.Screen name="Profile" component={CompletedTasks}/>
-                    <Stack.Screen name='AddTask' component={AddTask}/>
+                    <Stack.Screen name='Add a new Task' component={AddTask}/>
                     <Stack.Screen name='TaskView' component={TaskView} options={{title: TaskView.name}}/>
+                    <Stack.Screen name='Date Selector' component={DateSelector} options={{title: TaskView.name}}/>
                 </Stack.Navigator>
             </NavigationContainer>
         </View>

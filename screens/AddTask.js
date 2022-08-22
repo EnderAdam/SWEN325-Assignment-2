@@ -1,9 +1,19 @@
-import {KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {
+    Button,
+    KeyboardAvoidingView,
+    Platform,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
+} from "react-native";
 import * as React from "react";
 import {useState} from "react";
 import {windowWidth} from "./HomeScreen";
 import {addDoc, collection} from "firebase/firestore";
 import {auth, db} from "../config/firebase";
+import StarRating from 'react-native-star-rating';
 
 
 const AddTask = ({navigation}) => {
@@ -11,9 +21,13 @@ const AddTask = ({navigation}) => {
     const [details, setDetails] = useState('');
     const [plannedDate, setPlannedDate] = useState('');
     const [completedDate, setCompletedDate] = useState('');
-    const [people, setPeople] = useState('');
-    const [stars, setStars] = useState('');
+    const [people, setPeople] = useState([]);
+    const [stars, setStars] = useState(3);
     const [repeats, setRepeats] = useState('');
+
+    const onStarChange = (stars) => {
+        setStars(stars);
+    }
 
     let addToDo = async (task, details, plannedDate, completedDate, people, stars, repeats) => {
         try {
@@ -59,6 +73,20 @@ const AddTask = ({navigation}) => {
             </KeyboardAvoidingView>
             <TextInput style={styles.description} placeholder={'Description'}
                        value={details} onChangeText={text => setDetails(text)}/>
+            <View style={styles.setDateView}>
+                <Button style={styles.setDateButton} title={'Set Planned Date'}
+                        onPress={() => navigation.navigate('Date Selector')}>
+                </Button>
+            </View>
+            <TextInput style={styles.people} placeholder={'People'}
+                       value={people.join()} onChangeText={text => setPeople(text.replace(/\s/g, "").split(','))}/>
+            <StarRating
+                containerStyle={styles.starRating}
+                disabled={false}
+                maxStars={5}
+                rating={stars}
+                selectedStar={onStarChange}
+            />
         </View>
     );
 };
@@ -83,7 +111,18 @@ const styles = StyleSheet.create({
     },
     description: {
         left: 25,
-        top: 100,
+        top: 120,
+        paddingVertical: 15,
+        width: windowWidth - 50,
+        paddingHorizontal: 15,
+        backgroundColor: '#ffffff',
+        borderRadius: 60,
+        borderColor: '#C0C0C0',
+        borderWidth: 1,
+    },
+    people: {
+        left: 25,
+        top: 250,
         paddingVertical: 15,
         width: windowWidth - 50,
         paddingHorizontal: 15,
@@ -102,7 +141,21 @@ const styles = StyleSheet.create({
         borderColor: '#C0C0C0',
         borderWidth: 1,
     },
-    addTask: {}
+    addTask: {},
+    starRating: {
+        top: 300,
+        width: windowWidth - 50,
+        left: 25,
+    },
+    setDateView: {
+        top: 180,
+        left: 25,
+        width: windowWidth - 50,
+    },
+    setDateButton: {
+        backgroundColor: '#f44ff4',
+        color: '#f44ff4',
+    }
 });
 
 export default AddTask;
