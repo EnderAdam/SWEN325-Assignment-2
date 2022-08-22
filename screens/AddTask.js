@@ -1,8 +1,9 @@
 import {KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import * as React from "react";
 import {useState} from "react";
-import {Task} from "../components/Task";
-import {windowWidth} from "./RemainingTasks";
+import {windowWidth} from "./HomeScreen";
+import {addDoc, collection} from "firebase/firestore";
+import {auth, db} from "../config/firebase";
 
 
 const AddTask = ({navigation}) => {
@@ -14,6 +15,25 @@ const AddTask = ({navigation}) => {
     const [stars, setStars] = useState('');
     const [repeats, setRepeats] = useState('');
 
+    let addToDo = async (task, details, plannedDate, completedDate, people, stars, repeats) => {
+        try {
+            const docRef = await addDoc(collection(db, "tasks"), {
+                name: task,
+                details: details,
+                plannedDate: plannedDate,
+                completedDate: completedDate,
+                people: people,
+                stars: stars,
+                repeats: repeats,
+                isCompleted: false,
+                userId: auth.currentUser.uid
+            });
+            console.log("Document written with ID: ", docRef.id);
+        } catch (e) {
+            console.error("Error adding document: ", e);
+        }
+    }
+
     return (
         <View>
             <KeyboardAvoidingView
@@ -23,9 +43,13 @@ const AddTask = ({navigation}) => {
                            value={task} onChangeText={text => setTask(text)}/>
                 <TouchableOpacity onPress={() => {
                     if (task !== '') {
-                        navigation.navigate('RemainingTasks', {
-                            task: new Task(task, details, plannedDate, completedDate, people, stars, repeats)
-                        })
+                        addToDo(task, details, plannedDate, completedDate, people, stars, repeats)
+                            .then(() => {
+                                navigation.navigate('RemainingTasks', {
+                                    refresh: true
+                                })
+                            });
+
                     }
                 }}>
                     <View style={styles.addWrapper}>

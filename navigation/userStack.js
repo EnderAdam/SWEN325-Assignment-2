@@ -5,11 +5,9 @@ import {Button, Image, StyleSheet, Text, TouchableOpacity, View} from "react-nat
 import RemainingTasks from "../screens/RemainingTasks";
 import AddTask from "../screens/AddTask";
 import TaskView from "../screens/TaskView";
-import {createDrawerNavigator} from "@react-navigation/drawer";
-import {getAuth} from "firebase/auth";
+import {auth} from "../config/firebase";
 
 const Stack = createStackNavigator();
-const auth = getAuth();
 
 export default function UserStack() {
     const navigationRef = useNavigationContainerRef();
@@ -21,7 +19,7 @@ export default function UserStack() {
                     <Stack.Screen
                         name="RemainingTasks"
                         component={RemainingTasks}
-                        initialParams={{task: ''}}
+                        initialParams={{refresh: true}}
                         options={{
                             headerTitleAlign: 'center', title: 'Tasks',
                             headerRight: () => (

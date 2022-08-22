@@ -1,9 +1,14 @@
 import React from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {Button, Dimensions, StyleSheet, Text, View} from 'react-native';
 import { useAuthentication } from '../utils/useAuthentication';
 import {getAuth} from "firebase/auth";
 
 const auth = getAuth();
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
+export {windowWidth, windowHeight};
 
 export default function HomeScreen() {
     const { user } = useAuthentication();

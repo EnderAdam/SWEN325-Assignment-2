@@ -1,9 +1,8 @@
 import React from 'react';
 import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {createUserWithEmailAndPassword, getAuth} from 'firebase/auth';
-
-const auth = getAuth();
+import {createUserWithEmailAndPassword} from 'firebase/auth';
+import {auth} from "../config/firebase";
 
 const SignUpScreen = ({navigation}) => {
     const [value, setValue] = React.useState({

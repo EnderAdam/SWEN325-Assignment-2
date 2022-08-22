@@ -1,19 +1,21 @@
-import {Button, Dimensions, StyleSheet, TouchableOpacity, View} from "react-native";
+import {Button, StyleSheet, TouchableOpacity, View} from "react-native";
 import TaskListView from "../components/TaskListView";
 import * as React from "react";
 import TaskView from "./TaskView";
-import useEvent from "react-native-web/dist/modules/useEvent";
-import {useEffect} from "react";
+import {windowHeight} from "./HomeScreen";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import {auth, db} from "../config/firebase";
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 
-export {windowWidth, windowHeight};
-// let taskItems = [];
 
 const RemainingTasks = ({navigation, route}) => {
-
     const [tasks, setTasks] = React.useState([]);
+    let [isLoading, setIsLoading] = React.useState(true);
+
+    if (route.params.refresh === true) {
+        setIsLoading(true);
+        route.params.refresh = false;
+    }
 
     const completeTask = (index) => {
         let newTasks = [...tasks];
@@ -21,14 +23,24 @@ const RemainingTasks = ({navigation, route}) => {
         setTasks(newTasks);
     }
 
-    useEffect(() => {
-        if (route.params.task !== '') {
-            if (route.params.task.name !== '') {
-                setTasks([...tasks, route.params.task]);
-                route.params.task = '';
-            }
-        }
-    } , [route.params.task]);
+    let loadTasks = async () => {
+        const q = query(collection(db, "tasks"), where("userId", "==", auth.currentUser.uid));
+
+        const querySnapshot = await getDocs(q);
+        let newTasks = [];
+        querySnapshot.forEach((doc) => {
+            newTasks.push(doc.data());
+        });
+
+        setTasks(newTasks);
+        setIsLoading(false);
+    }
+
+    if (isLoading) {
+        loadTasks();
+    }
+    // loadTasks();
+
     return (
         <View style={{flex: 1, backgroundColor: "#ffffff"}}>
             <View style={{

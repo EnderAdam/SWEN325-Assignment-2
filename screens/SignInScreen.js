@@ -1,9 +1,9 @@
 import React from 'react';
 import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import {signInWithEmailAndPassword} from 'firebase/auth';
+import {auth} from "../config/firebase";
 
-const auth = getAuth();
 
 const SignInScreen = () => {
     const [value, setValue] = React.useState({
@@ -42,7 +42,7 @@ const SignInScreen = () => {
                     placeholder='Email'
                     containerStyle={styles.control}
                     value={value.email}
-                    onChangeText={(text) => setValue({ ...value, email: text })}
+                    onChangeText={(text) => setValue({...value, email: text})}
                     leftIcon={<Icon
                         name='envelope'
                         size={16}
@@ -53,7 +53,7 @@ const SignInScreen = () => {
                     placeholder='Password'
                     containerStyle={styles.control}
                     value={value.password}
-                    onChangeText={(text) => setValue({ ...value, password: text })}
+                    onChangeText={(text) => setValue({...value, password: text})}
                     secureTextEntry={true}
                     leftIcon={<Icon
                         name='key'
@@ -61,7 +61,7 @@ const SignInScreen = () => {
                     />}
                 />
 
-                <Button title="Sign in" buttonStyle={styles.control} onPress={signIn} />
+                <Button title="Sign in" buttonStyle={styles.control} onPress={signIn}/>
             </View>
         </View>
     );
