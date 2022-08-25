@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavigationContainer, useNavigationContainerRef} from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import {Button, Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import RemainingTasks from "../screens/RemainingTasks";
 import AddTask from "../screens/AddTask";
@@ -24,13 +24,19 @@ export default function UserStack() {
                         options={{
                             headerTitleAlign: 'center', title: 'Tasks',
                             headerRight: () => (
-                                <TouchableOpacity onPress={() => navigationRef.navigate('Add a new Task')}>
-                                    <Image source={require('../Images/plusIcon.jpg')}
-                                           style={{width: 24, height: 24, marginRight: 16}}/>
-                                </TouchableOpacity>
+                                <View style={styles.topRight}>
+                                    <TouchableOpacity onPress={() => navigationRef.navigate('Add a new Task')}>
+                                        <Image source={require('../Images/filterIcon.jpg')}
+                                               style={{width: 24, height: 24, marginRight: 16}}/>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity onPress={() => navigationRef.navigate('Add a new Task')}>
+                                        <Image source={require('../Images/plusIcon.jpg')}
+                                               style={{width: 24, height: 24, marginRight: 16}}/>
+                                    </TouchableOpacity>
+                                </View>
                             ),
                             headerLeft: () => (
-                                <Button title="Sign Out" style={styles.button} onPress={() => auth.signOut()} />
+                                <Button title="Sign Out" style={styles.button} onPress={() => auth.signOut()}/>
                             )
                         }}
                     />
@@ -52,9 +58,9 @@ const CompletedTasks = ({navigation, route}) => {
 };
 
 const styles = StyleSheet.create({
-    container: {
+    topRight: {
         flex: 1,
-        backgroundColor: '#fff',
+        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
     },

@@ -57,12 +57,15 @@ const AddTask = ({navigation}) => {
                            value={task} onChangeText={text => setTask(text)}/>
                 <TouchableOpacity onPress={() => {
                     if (task !== '') {
-                        addToDo(task, details, plannedDate, completedDate, people, stars, repeats)
-                            .then(() => {
-                                navigation.navigate('RemainingTasks', {
-                                    refresh: true
-                                })
-                            });
+                        addToDo(task, details, plannedDate, completedDate, people, stars, repeats);
+                            // .then(() => {
+                            //     navigation.navigate('RemainingTasks', {
+                            //         refresh: true
+                            //     })
+                            // });
+                        navigation.navigate('RemainingTasks', {
+                            refresh: true
+                        });
 
                     }
                 }}>

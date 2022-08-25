@@ -1,4 +1,4 @@
-import {Button, StyleSheet, TouchableOpacity, View} from "react-native";
+import {Button, ScrollView, StyleSheet, TouchableOpacity, View} from "react-native";
 import TaskListView from "../components/TaskListView";
 import * as React from "react";
 import TaskView from "./TaskView";
@@ -67,7 +67,7 @@ const RemainingTasks = ({navigation, route}) => {
                     />
                 </View>
             </View>
-            <View>
+            <ScrollView>
                 {
                     tasks.map((item, index) => {
                         if (item.isCompleted === false) {
@@ -81,7 +81,7 @@ const RemainingTasks = ({navigation, route}) => {
                         }
                     })
                 }
-            </View>
+            </ScrollView>
         </View>
     );
 };
