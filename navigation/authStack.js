@@ -8,6 +8,13 @@ import SignOutScreen from '../screens/SignUpScreen';
 
 const Stack = createStackNavigator();
 
+/**
+ * AuthStack is the stack navigator for the authentication screens.
+ * The screens are: Welcome, SignIn, SignUp.
+ *  - WelcomeScreen is the welcome screen.
+ * @returns {JSX.Element} The stack navigator for the authentication screens.
+ * @constructor
+ */
 export default function AuthStack() {
     return (
         <NavigationContainer>
