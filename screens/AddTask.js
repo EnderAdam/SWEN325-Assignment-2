@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import * as React from "react";
 import {useState} from "react";
-import {windowWidth} from "./HomeScreen";
+import {windowWidth} from "../navigation/userStack";
 import {addDoc, collection} from "firebase/firestore";
 import {auth, db} from "../config/firebase";
 import StarRating from 'react-native-star-rating';
@@ -19,10 +19,12 @@ import StarRating from 'react-native-star-rating';
 const AddTask = ({navigation, route}) => {
     const [task, setTask] = useState('');
     const [details, setDetails] = useState('');
-    const [plannedDate, setPlannedDate] = useState('');
+    const [plannedDate, setPlannedDate] = useState(new Date().toDateString() + ' ' + new Date().toLocaleTimeString());
     const [completedDate, setCompletedDate] = useState('');
     const [people, setPeople] = useState([]);
     const [stars, setStars] = useState(3);
+
+
 
     if (route.params.date != null) {
         setPlannedDate(route.params.date + ' ' + route.params.time);
@@ -51,6 +53,7 @@ const AddTask = ({navigation, route}) => {
         }
     }
 
+
     return (
         <View>
             <KeyboardAvoidingView
@@ -60,7 +63,7 @@ const AddTask = ({navigation, route}) => {
                            value={task} onChangeText={text => setTask(text)}/>
                 <TouchableOpacity onPress={() => {
                     if (task !== '') {
-                        addToDo(task, details, plannedDate, completedDate, people, stars, repeats);
+                        addToDo(task, details, plannedDate, completedDate, people, stars);
                             // .then(() => {
                             //     navigation.navigate('RemainingTasks', {
                             //         refresh: true
@@ -80,8 +83,9 @@ const AddTask = ({navigation, route}) => {
             <TextInput style={styles.description} placeholder={'Description'}
                        value={details} onChangeText={text => setDetails(text)}/>
             <View style={styles.setDateView}>
+                <Text style={styles.date}>Planned date = {plannedDate}</Text>
                 <Button style={styles.setDateButton} title={'Set Planned Date'}
-                        onPress={() => navigation.navigate('Date Selector')}>
+                        onPress={() => navigation.navigate('Date Selector', {date: plannedDate})}>
                 </Button>
             </View>
             <TextInput style={styles.people} placeholder={'People'}

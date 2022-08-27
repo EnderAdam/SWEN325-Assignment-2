@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavigationContainer, useNavigationContainerRef} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Button, Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Button, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import RemainingTasks from "../screens/RemainingTasks";
 import AddTask from "../screens/AddTask";
 import TaskView from "../screens/TaskView";
@@ -9,6 +9,12 @@ import {auth} from "../config/firebase";
 import DateSelector from "../screens/DateSelector";
 
 const Stack = createStackNavigator();
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
+export {windowWidth, windowHeight};
+
 
 export default function UserStack() {
     const navigationRef = useNavigationContainerRef();
@@ -42,7 +48,8 @@ export default function UserStack() {
                     />
                     <Stack.Screen name="Profile" component={CompletedTasks}/>
                     <Stack.Screen name='Add a new Task' component={AddTask}/>
-                    <Stack.Screen name='TaskView' component={TaskView} options={{title: TaskView.name}}/>
+                    <Stack.Screen name='TaskView' component={TaskView}
+                                  options={{title: TaskView.name, headerTitleAlign: 'center'}}/>
                     <Stack.Screen name='Date Selector' component={DateSelector}
                                   options={{title: 'Planned/Due Date', headerTitleAlign: 'center'}}/>
                 </Stack.Navigator>

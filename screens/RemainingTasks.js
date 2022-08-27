@@ -2,7 +2,7 @@ import {Button, ScrollView, StyleSheet, TouchableOpacity, View} from "react-nati
 import TaskListView from "../components/TaskListView";
 import * as React from "react";
 import TaskView from "./TaskView";
-import {windowHeight} from "./HomeScreen";
+import {windowHeight} from '../navigation/userStack';
 import { collection, getDocs, query, where } from "firebase/firestore";
 import {auth, db} from "../config/firebase";
 
@@ -11,6 +11,7 @@ import {auth, db} from "../config/firebase";
 const RemainingTasks = ({navigation, route}) => {
     const [tasks, setTasks] = React.useState([]);
     let [isLoading, setIsLoading] = React.useState(true);
+    const [completedShown, setCompletedShown] = React.useState(false);
 
     if (route.params.refresh === true) {
         setIsLoading(true);
@@ -70,7 +71,7 @@ const RemainingTasks = ({navigation, route}) => {
             <ScrollView>
                 {
                     tasks.map((item, index) => {
-                        if (item.isCompleted === false) {
+                        if (item.isCompleted === completedShown) {
                             return (
                                 // <TouchableOpacity key={index} onPress={() => completeTask(index)}>
                                 <TouchableOpacity key={index}

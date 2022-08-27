@@ -13,7 +13,6 @@ const TaskView = ({navigation, route}) => {
             <Text>{route.params.task.completedDate}</Text>
             <Text>{route.params.task.people}</Text>
             <Text>{route.params.task.stars}</Text>
-            <Text>{route.params.task.repeats}</Text>
             <Text>{route.params.task.isCompleted}</Text>
         </View>
     );
