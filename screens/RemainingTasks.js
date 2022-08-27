@@ -55,7 +55,7 @@ const RemainingTasks = ({navigation, route}) => {
                         titleStyle={{fontSize: 66}}
                         title="Remaining"
                         onPress={() =>
-                            navigation.navigate('Profile', {name: 'Jane'})
+                            setCompletedShown(false)
                         }
                     />
                 </View>
@@ -63,7 +63,7 @@ const RemainingTasks = ({navigation, route}) => {
                     <Button
                         title="Finished"
                         onPress={() =>
-                            navigation.navigate('Profile', {name: 'Bruh'})
+                            setCompletedShown(true)
                         }
                     />
                 </View>

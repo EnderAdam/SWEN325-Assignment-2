@@ -46,7 +46,6 @@ export default function UserStack() {
                             )
                         }}
                     />
-                    <Stack.Screen name="Profile" component={CompletedTasks}/>
                     <Stack.Screen name='Add a new Task' component={AddTask}/>
                     <Stack.Screen name='TaskView' component={TaskView}
                                   options={{title: TaskView.name, headerTitleAlign: 'center'}}/>
@@ -58,12 +57,6 @@ export default function UserStack() {
     );
 }
 
-const CompletedTasks = ({navigation, route}) => {
-    return (<View>
-            <Text>This is {route.params.name}'s profile</Text>
-        </View>
-    );
-};
 
 const styles = StyleSheet.create({
     topRight: {
