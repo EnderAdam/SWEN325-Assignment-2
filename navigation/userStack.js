@@ -29,7 +29,7 @@ export default function UserStack() {
                                         <Image source={require('../Images/filterIcon.jpg')}
                                                style={{width: 24, height: 24, marginRight: 16}}/>
                                     </TouchableOpacity>
-                                    <TouchableOpacity onPress={() => navigationRef.navigate('Add a new Task')}>
+                                    <TouchableOpacity onPress={() => navigationRef.navigate('Add a new Task', {date: null})}>
                                         <Image source={require('../Images/plusIcon.jpg')}
                                                style={{width: 24, height: 24, marginRight: 16}}/>
                                     </TouchableOpacity>
@@ -43,7 +43,8 @@ export default function UserStack() {
                     <Stack.Screen name="Profile" component={CompletedTasks}/>
                     <Stack.Screen name='Add a new Task' component={AddTask}/>
                     <Stack.Screen name='TaskView' component={TaskView} options={{title: TaskView.name}}/>
-                    <Stack.Screen name='Date Selector' component={DateSelector} options={{title: TaskView.name}}/>
+                    <Stack.Screen name='Date Selector' component={DateSelector}
+                                  options={{title: 'Planned/Due Date', headerTitleAlign: 'center'}}/>
                 </Stack.Navigator>
             </NavigationContainer>
         </View>

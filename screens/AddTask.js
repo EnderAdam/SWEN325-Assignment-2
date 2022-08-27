@@ -16,20 +16,24 @@ import {auth, db} from "../config/firebase";
 import StarRating from 'react-native-star-rating';
 
 
-const AddTask = ({navigation}) => {
+const AddTask = ({navigation, route}) => {
     const [task, setTask] = useState('');
     const [details, setDetails] = useState('');
     const [plannedDate, setPlannedDate] = useState('');
     const [completedDate, setCompletedDate] = useState('');
     const [people, setPeople] = useState([]);
     const [stars, setStars] = useState(3);
-    const [repeats, setRepeats] = useState('');
+
+    if (route.params.date != null) {
+        setPlannedDate(route.params.date + ' ' + route.params.time);
+        route.params.date = null;
+    }
 
     const onStarChange = (stars) => {
         setStars(stars);
     }
 
-    let addToDo = async (task, details, plannedDate, completedDate, people, stars, repeats) => {
+    let addToDo = async (task, details, plannedDate, completedDate, people, stars) => {
         try {
             const docRef = await addDoc(collection(db, "tasks"), {
                 name: task,
@@ -38,7 +42,6 @@ const AddTask = ({navigation}) => {
                 completedDate: completedDate,
                 people: people,
                 stars: stars,
-                repeats: repeats,
                 isCompleted: false,
                 userId: auth.currentUser.uid
             });
