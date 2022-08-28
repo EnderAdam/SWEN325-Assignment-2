@@ -10,10 +10,6 @@ import DateSelector from "../screens/DateSelector";
 
 const Stack = createStackNavigator();
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-
-export {windowWidth, windowHeight};
 
 
 export default function UserStack() {

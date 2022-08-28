@@ -1,5 +1,5 @@
 import {
-    Button,
+    Button, Dimensions,
     KeyboardAvoidingView,
     Platform,
     StyleSheet,
@@ -10,11 +10,11 @@ import {
 } from "react-native";
 import * as React from "react";
 import {useState} from "react";
-import {windowWidth} from "../navigation/userStack";
 import {addDoc, collection} from "firebase/firestore";
 import {auth, db} from "../config/firebase";
 import StarRating from 'react-native-star-rating';
 
+const windowWidth = Dimensions.get('window').width;
 
 const AddTask = ({navigation, route}) => {
     const [task, setTask] = useState('');
@@ -26,9 +26,9 @@ const AddTask = ({navigation, route}) => {
 
 
 
-    if (route.params.date != null) {
+    if (route.params.date !== '') {
         setPlannedDate(route.params.date + ' ' + route.params.time);
-        route.params.date = null;
+        route.params.date = '';
     }
 
     const onStarChange = (stars) => {

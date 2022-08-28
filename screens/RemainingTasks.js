@@ -1,10 +1,11 @@
-import {Button, ScrollView, StyleSheet, TouchableOpacity, View} from "react-native";
+import {Button, Dimensions, ScrollView, StyleSheet, TouchableOpacity, View} from "react-native";
 import TaskListView from "../components/TaskListView";
 import * as React from "react";
 import TaskView from "./TaskView";
-import {windowHeight} from '../navigation/userStack';
 import { collection, getDocs, query, where } from "firebase/firestore";
 import {auth, db} from "../config/firebase";
+
+const windowHeight = Dimensions.get('window').height;
 
 
 

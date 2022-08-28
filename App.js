@@ -4,7 +4,6 @@ import RootNavigation from './navigation';
 import 'react-native-gesture-handler';
 import {ThemeProvider} from "@react-navigation/native";
 
-
 const App = () => {
     return (
         <ThemeProvider>
