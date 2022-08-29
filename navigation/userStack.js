@@ -2,7 +2,7 @@ import React from 'react';
 import {NavigationContainer, useNavigationContainerRef} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Button, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import RemainingTasks from "../screens/RemainingTasks";
+import TasksScreen from "../screens/TasksScreen";
 import AddTask from "../screens/AddTask";
 import TaskView from "../screens/TaskView";
 import {auth} from "../config/firebase";
@@ -21,7 +21,7 @@ export default function UserStack() {
                 <Stack.Navigator>
                     <Stack.Screen
                         name="RemainingTasks"
-                        component={RemainingTasks}
+                        component={TasksScreen}
                         initialParams={{refresh: true}}
                         options={{
                             headerTitleAlign: 'center', title: 'Tasks',

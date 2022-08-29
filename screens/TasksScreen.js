@@ -9,7 +9,7 @@ const windowHeight = Dimensions.get('window').height;
 
 
 
-const RemainingTasks = ({navigation, route}) => {
+const TasksScreen = ({navigation, route}) => {
     const [tasks, setTasks] = React.useState([]);
     let [isLoading, setIsLoading] = React.useState(true);
     const [completedShown, setCompletedShown] = React.useState(false);
@@ -90,4 +90,4 @@ const RemainingTasks = ({navigation, route}) => {
 
 const styles = StyleSheet.create({});
 
-export default RemainingTasks;
+export default TasksScreen;
