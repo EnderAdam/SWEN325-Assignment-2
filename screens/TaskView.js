@@ -1,7 +1,7 @@
 import {Button, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import React, {useEffect} from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
-import {deleteDoc, doc} from "firebase/firestore";
+import {deleteDoc, doc, updateDoc} from "firebase/firestore";
 import {db} from "../config/firebase";
 
 
@@ -26,10 +26,29 @@ const TaskView = ({navigation, route}) => {
         navigation.navigate('RemainingTasks', {refresh: true});
     }
 
-    let
-        completeTask = async (taskId) => {
+    /**
+     *  Update the task's status to completed
+     *  Set the completedDate to the current time and date
+     * @param taskId
+     * @returns {Promise<void>}
+     */
+    let completeTask = async (taskId) => {
         const task = await doc(db, "tasks", taskId);
-        await task.update({isCompleted: true});
+        await updateDoc(task, {completedDate: new Date().toDateString() + ' ' + new Date().toLocaleTimeString()});
+        await updateDoc(task, {isCompleted: true});
+        navigation.navigate('RemainingTasks', {refresh: true});
+    }
+
+    /**
+     *  Update the task's status to not completed
+     *  Remove the completedDate
+     * @param taskId
+     * @returns {Promise<void>}
+     */
+    let uncompleteTask = async (taskId) => {
+        const task = await doc(db, "tasks", taskId);
+        await updateDoc(task, {completedDate: "Not completed"});
+        await updateDoc(task, {isCompleted: false});
         navigation.navigate('RemainingTasks', {refresh: true});
     }
 
@@ -68,10 +87,18 @@ const TaskView = ({navigation, route}) => {
                     <Button title={'Delete Task'}
                             onPress={() => deleteTask(route.params.task.id)}/>
                 </View>
-                <View style={styles.taskViewButtons}>
-                    <Button style={styles.taskViewButtons} title={'Complete Task' + route.params.task.id}
-                            onPress={() => completeTask(route.params.task.id)}/>
-                </View>
+                {!route.params.task.isCompleted ? (
+
+                    <View style={styles.taskViewButtons}>
+                        <Button style={styles.taskViewButtons} title={'Complete Task'}
+                                onPress={() => completeTask(route.params.task.id)}/>
+                    </View>
+                ) : (
+                    <View style={styles.taskViewButtons}>
+                        <Button style={styles.taskViewButtons} title={'Uncomplete Task'}
+                                onPress={() => uncompleteTask(route.params.task.id)}/>
+                    </View>
+                )}
             </View>
         </ScrollView>
     );
