@@ -1,4 +1,4 @@
-import {Button, Dimensions, ScrollView, StyleSheet, TouchableOpacity, View} from "react-native";
+import {Button, Dimensions, ScrollView, TouchableOpacity, View} from "react-native";
 import TaskListView from "../components/TaskListView";
 import * as React from "react";
 import TaskView from "./TaskView";
@@ -77,5 +77,5 @@ const TasksScreen = ({navigation, route}) => {
         </View>
     );
 };
-StyleSheet.create({});
+
 export default TasksScreen;
