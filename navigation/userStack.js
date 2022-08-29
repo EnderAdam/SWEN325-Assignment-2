@@ -1,15 +1,16 @@
 import React from 'react';
 import {NavigationContainer, useNavigationContainerRef} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Button, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Button, StyleSheet, TouchableOpacity, View} from "react-native";
 import TasksScreen from "../screens/TasksScreen";
 import AddTask from "../screens/AddTask";
 import TaskView from "../screens/TaskView";
 import {auth} from "../config/firebase";
 import DateSelector from "../screens/DateSelector";
+import Icon from "react-native-vector-icons/FontAwesome";
+
 
 const Stack = createStackNavigator();
-
 
 
 export default function UserStack() {
@@ -28,12 +29,13 @@ export default function UserStack() {
                             headerRight: () => (
                                 <View style={styles.topRight}>
                                     <TouchableOpacity onPress={() => navigationRef.navigate('Add a new Task')}>
-                                        <Image source={require('../Images/filterIcon.jpg')}
-                                               style={{width: 24, height: 24, marginRight: 16}}/>
+                                        <Icon name='filter' size={24} color="black"
+                                              style={{width: 24, height: 24, marginRight: 10}}/>
                                     </TouchableOpacity>
-                                    <TouchableOpacity onPress={() => navigationRef.navigate('Add a new Task', {date: null})}>
-                                        <Image source={require('../Images/plusIcon.jpg')}
-                                               style={{width: 24, height: 24, marginRight: 16}}/>
+                                    <TouchableOpacity
+                                        onPress={() => navigationRef.navigate('Add a new Task', {date: null})}>
+                                        <Icon name='plus' size={24} color="black"
+                                              style={{width: 24, height: 24, marginRight: 10}}/>
                                     </TouchableOpacity>
                                 </View>
                             ),
