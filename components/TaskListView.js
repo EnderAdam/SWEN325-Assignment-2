@@ -2,7 +2,6 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
 const TaskListView = (props) => {
-    //make thus crcle view a button
     return (
         <View style={styles.item}>
             <View style={styles.itemLeft}>

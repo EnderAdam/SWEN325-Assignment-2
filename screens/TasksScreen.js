@@ -7,8 +7,6 @@ import {auth, db} from "../config/firebase";
 
 const windowHeight = Dimensions.get('window').height;
 
-
-
 const TasksScreen = ({navigation, route}) => {
     const [tasks, setTasks] = React.useState([]);
     let [isLoading, setIsLoading] = React.useState(true);
@@ -19,29 +17,23 @@ const TasksScreen = ({navigation, route}) => {
         route.params.refresh = false;
     }
 
-    const completeTask = (index) => {
-        let newTasks = [...tasks];
-        newTasks.splice(index, 1);
-        setTasks(newTasks);
-    }
-
     let loadTasks = async () => {
         const q = query(collection(db, "tasks"), where("userId", "==", auth.currentUser.uid));
 
         const querySnapshot = await getDocs(q);
         let newTasks = [];
         querySnapshot.forEach((doc) => {
-            newTasks.push(doc.data());
+            let newTask = doc.data();
+            newTask.id = doc.id;
+            newTasks.push(newTask);
         });
 
         setTasks(newTasks);
-        setIsLoading(false);
     }
 
     if (isLoading) {
-        loadTasks();
+        loadTasks().then(() => {setIsLoading(false)});
     }
-    // loadTasks();
 
     return (
         <View style={{flex: 1, backgroundColor: "#ffffff"}}>
@@ -51,7 +43,6 @@ const TasksScreen = ({navigation, route}) => {
             }}>
                 <View style={{flex: 0.5}}>
                     <Button
-                        style={styles.button}
                         color="#ff5f5f"
                         titleStyle={{fontSize: 66}}
                         title="Remaining"
@@ -74,7 +65,6 @@ const TasksScreen = ({navigation, route}) => {
                     tasks.map((item, index) => {
                         if (item.isCompleted === completedShown) {
                             return (
-                                // <TouchableOpacity key={index} onPress={() => completeTask(index)}>
                                 <TouchableOpacity key={index}
                                                   onPress={() => navigation.navigate('TaskView', {task: item})}>
                                     <TaskListView text={item.name}/>
@@ -87,7 +77,5 @@ const TasksScreen = ({navigation, route}) => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({});
-
+StyleSheet.create({});
 export default TasksScreen;

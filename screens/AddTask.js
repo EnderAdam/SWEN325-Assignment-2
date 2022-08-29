@@ -19,16 +19,15 @@ const windowWidth = Dimensions.get('window').width;
 const AddTask = ({navigation, route}) => {
     const [task, setTask] = useState('');
     const [details, setDetails] = useState('');
-    const [plannedDate, setPlannedDate] = useState(new Date().toDateString() + ' ' + new Date().toLocaleTimeString());
-    const [completedDate, setCompletedDate] = useState('');
+    const [plannedDate, setPlannedDate] = useState("Not Set Yet");
     const [people, setPeople] = useState([]);
     const [stars, setStars] = useState(3);
 
 
 
-    if (route.params.date !== '') {
+    if (route.params.date !== null) {
         setPlannedDate(route.params.date + ' ' + route.params.time);
-        route.params.date = '';
+        route.params.date = null;
     }
 
     const onStarChange = (stars) => {
@@ -63,12 +62,7 @@ const AddTask = ({navigation, route}) => {
                            value={task} onChangeText={text => setTask(text)}/>
                 <TouchableOpacity onPress={() => {
                     if (task !== '') {
-                        addToDo(task, details, plannedDate, completedDate, people, stars);
-                            // .then(() => {
-                            //     navigation.navigate('RemainingTasks', {
-                            //         refresh: true
-                            //     })
-                            // });
+                        addToDo(task, details, plannedDate, "Not Yet", people, stars);
                         navigation.navigate('RemainingTasks', {
                             refresh: true
                         });
