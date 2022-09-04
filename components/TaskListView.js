@@ -3,17 +3,17 @@ import {StyleSheet, Text, View} from 'react-native';
 
 const TaskListView = (props) => {
     return (
-        <View style={styles.item}>
-            <View style={styles.itemLeft}>
-                <View style={styles.circle}></View>
-                <Text style={styles.itemText}>{props.text}</Text>
+        <View style={styles.taskItemComponent}>
+            <View style={styles.taskItemComponentFlex}>
+                <View style={styles.taskItemComponentCircle}></View>
+                <Text style={styles.taskItemComponentText}>{props.text}</Text>
             </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    item: {
+    taskItemComponent: {
         backgroundColor: '#ffffff',
         padding: 15,
         borderColor: '#000',
@@ -24,12 +24,12 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginBottom: 20,
     },
-    itemLeft: {
+    taskItemComponentFlex: {
         flexDirection: 'row',
         alignItems: 'center',
         flexWrap: 'wrap'
     },
-    circle: {
+    taskItemComponentCircle: {
         width: 24,
         height: 24,
         borderWidth: 3,
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         marginRight: 15,
     },
-    itemText: {
+    taskItemComponentText: {
         maxWidth: '80%',
     },
 });

@@ -14,6 +14,7 @@ const DateSelector = ({navigation, route}) => {
     const [date, setDate] = useState(new Date());
     const [timePicker, setTimePicker] = useState(false);
     const [time, setTime] = useState(new Date(Date.now()));
+    const [previousScreen, setPreviousScreen] = useState(route.params.previousScreen); //to return to previous page on save
 
     function showDatePicker() {
         setDatePicker(true);
@@ -35,7 +36,7 @@ const DateSelector = ({navigation, route}) => {
 
     return (
         <SafeAreaView style={{flex: 1}}>
-            <View style={styles.MainContainer}>
+            <View style={styles.DateMainContainer}>
 
                 <Text style={styles.text}>Date = {date.toDateString()}</Text>
 
@@ -76,7 +77,7 @@ const DateSelector = ({navigation, route}) => {
                 )}
                 <View style={{margin: 10}}>
                     <Button onPress={() => {
-                        navigation.navigate('Add a new Task', {
+                        navigation.navigate(previousScreen, {
                             date: date.toDateString(),
                             time: time.toLocaleTimeString("en-US")
                         });
@@ -92,14 +93,12 @@ export default DateSelector;
 
 
 const styles = StyleSheet.create({
-
-    MainContainer: {
+    DateMainContainer: {
         flex: 1,
         padding: 6,
         alignItems: 'center',
         backgroundColor: 'white'
     },
-
     text: {
         fontSize: 25,
         color: 'red',
@@ -107,8 +106,6 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         textAlign: 'center'
     },
-
-    // Style for iOS ONLY...
     datePicker: {
         justifyContent: 'center',
         alignItems: 'flex-start',

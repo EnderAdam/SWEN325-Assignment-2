@@ -7,6 +7,7 @@ import AddTask from "../screens/AddTask";
 import TaskView from "../screens/TaskView";
 import {auth} from "../config/firebase";
 import DateSelector from "../screens/DateSelector";
+import EditTask from "../screens/EditTask";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 
@@ -49,6 +50,8 @@ export default function UserStack() {
                                   options={{title: TaskView.name, headerTitleAlign: 'center'}}/>
                     <Stack.Screen name='Date Selector' component={DateSelector}
                                   options={{title: 'Planned/Due Date', headerTitleAlign: 'center'}}/>
+                    <Stack.Screen name='Edit Task' component={EditTask}
+                                  options={{headerTitleAlign: 'center'}}/>
                 </Stack.Navigator>
             </NavigationContainer>
         </View>

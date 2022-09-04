@@ -120,7 +120,7 @@ const EditTask = ({navigation, route}) => {
                 <TouchableOpacity onPress={() => {
                     if (task !== '') {
                         updateTask(route.params.task.id, task, details, shownDate, people, stars).then(r => {
-                            navigation.navigate('TaskView', {task: route.params.task});
+                            navigation.navigate('RemainingTasks', {refresh: true});
                         });
                     }
                 }}>

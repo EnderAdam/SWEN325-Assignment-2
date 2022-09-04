@@ -79,7 +79,7 @@ const AddTask = ({navigation, route}) => {
             <View style={styles.setDateView}>
                 <Text style={styles.date}>Planned date = {plannedDate}</Text>
                 <Button style={styles.setDateButton} title={'Set Planned Date'}
-                        onPress={() => navigation.navigate('Date Selector', {date: plannedDate})}>
+                        onPress={() => navigation.navigate('Date Selector', {date: plannedDate, previousScreen: 'Add a new Task'})}>
                 </Button>
             </View>
             <TextInput style={styles.people} placeholder={'People'}
