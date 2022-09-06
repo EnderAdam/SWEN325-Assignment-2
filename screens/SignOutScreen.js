@@ -1,8 +1,9 @@
-import {Button, StyleSheet, Text, TextInput, View} from "react-native";
+import {Button, Text, TextInput, View} from "react-native";
 import {auth, db} from "../config/firebase";
 import React from "react";
 import {deleteUser, signInWithEmailAndPassword} from "firebase/auth";
 import {collection, getDocs, query, where, writeBatch} from "firebase/firestore";
+import styles from "../utils/AppStyles";
 
 const SignOutScreen = (navigation) => {
     let [errorMessage, setErrorMessage] = React.useState("");
@@ -37,29 +38,17 @@ const SignOutScreen = (navigation) => {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={styles.signContainer}>
             <TextInput
                 placeholder='Current Password'
                 value={password}
                 secureTextEntry={true}
                 onChangeText={setPassword}/>
-            <Text style={styles.errorText}>{errorMessage}</Text>
+            <Text style={{color: "#ff0000"}}>{errorMessage}</Text>
             <Button title="Sign out" onPress={() => auth.signOut()}/>
             <Button title="Delete user" onPress={() => deleteUserWithTasks()}/>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingTop: 20,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    errorText: {
-        color: "#ff0000"
-    },
-});
 
 export default SignOutScreen;

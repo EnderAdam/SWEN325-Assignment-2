@@ -2,7 +2,7 @@ import {Dimensions, StyleSheet} from "react-native";
 
 const windowWidth = Dimensions.get('window').width;
 
-const styles = StyleSheet.create({
+const appStyles = StyleSheet.create({
     writeTaskWrapper: {
         position: 'absolute',
         top: 10,
@@ -76,6 +76,61 @@ const styles = StyleSheet.create({
         height: 260,
         display: 'flex',
     },
+    taskItemComponent: {
+        backgroundColor: '#ffffff',
+        padding: 15,
+        borderColor: '#000',
+        borderWidth: 1,
+        borderRadius: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: 20,
+    },
+    taskItemComponentFlex: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        flexWrap: 'wrap'
+    },
+    taskItemComponentCircle: {
+        width: 24,
+        height: 24,
+        borderWidth: 3,
+        borderColor: '#000',
+        opacity: 0.4,
+        borderRadius: 12,
+        marginRight: 15,
+    },
+    taskItemComponentText: {
+        maxWidth: '80%',
+    },
+    topRightAddAndSort: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#fff'
+    },
+    DateMainContainer: {
+        flex: 1,
+        padding: 6,
+        alignItems: 'center',
+        backgroundColor: 'white'
+    },
+    text: {
+        fontSize: 25,
+        color: 'red',
+        padding: 3,
+        marginBottom: 10,
+        textAlign: 'center'
+    },
+    signContainer: {
+        flex: 1,
+        paddingTop: 20,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });
 
-export default styles;
+export default appStyles;

@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
+import React from 'react';
+import {getAuth, onAuthStateChanged} from 'firebase/auth';
 
 const auth = getAuth();
 

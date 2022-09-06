@@ -1,6 +1,7 @@
-import {Button, Platform, SafeAreaView, StyleSheet, Text, View} from "react-native";
+import {Button, Platform, SafeAreaView, Text, View} from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {useState} from "react";
+import styles from '../utils/AppStyles';
 
 /**
  * @param navigation
@@ -90,28 +91,3 @@ const DateSelector = ({navigation, route}) => {
 }
 
 export default DateSelector;
-
-
-const styles = StyleSheet.create({
-    DateMainContainer: {
-        flex: 1,
-        padding: 6,
-        alignItems: 'center',
-        backgroundColor: 'white'
-    },
-    text: {
-        fontSize: 25,
-        color: 'red',
-        padding: 3,
-        marginBottom: 10,
-        textAlign: 'center'
-    },
-    datePicker: {
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        width: 320,
-        height: 260,
-        display: 'flex',
-    },
-
-});

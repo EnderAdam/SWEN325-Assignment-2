@@ -1,8 +1,6 @@
 import {
-    Button, Dimensions,
-    KeyboardAvoidingView,
+    Button, KeyboardAvoidingView,
     Platform,
-    StyleSheet,
     Text,
     TextInput,
     TouchableOpacity,
@@ -13,8 +11,8 @@ import {useState} from "react";
 import {addDoc, collection} from "firebase/firestore";
 import {auth, db} from "../config/firebase";
 import StarRating from 'react-native-star-rating';
+import styles from "../utils/AppStyles";
 
-const windowWidth = Dimensions.get('window').width;
 
 const AddTask = ({navigation, route}) => {
     const [task, setTask] = useState('');
@@ -70,7 +68,7 @@ const AddTask = ({navigation, route}) => {
                     }
                 }}>
                     <View style={styles.addWrapper}>
-                        <Text style={styles.addTask}>Save</Text>
+                        <Text>Save</Text>
                     </View>
                 </TouchableOpacity>
             </KeyboardAvoidingView>
@@ -94,72 +92,5 @@ const AddTask = ({navigation, route}) => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    writeTaskWrapper: {
-        position: 'absolute',
-        top: 10,
-        width: '100%',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-    },
-    taskName: {
-        paddingVertical: 15,
-        width: 250,
-        paddingHorizontal: 15,
-        backgroundColor: '#ffffff',
-        borderRadius: 60,
-        borderColor: '#C0C0C0',
-        borderWidth: 1,
-    },
-    description: {
-        left: 25,
-        top: 120,
-        paddingVertical: 15,
-        width: windowWidth - 50,
-        paddingHorizontal: 15,
-        backgroundColor: '#ffffff',
-        borderRadius: 60,
-        borderColor: '#C0C0C0',
-        borderWidth: 1,
-    },
-    people: {
-        left: 25,
-        top: 250,
-        paddingVertical: 15,
-        width: windowWidth - 50,
-        paddingHorizontal: 15,
-        backgroundColor: '#ffffff',
-        borderRadius: 60,
-        borderColor: '#C0C0C0',
-        borderWidth: 1,
-    },
-    addWrapper: {
-        width: 60,
-        height: 60,
-        backgroundColor: '#FFF',
-        borderRadius: 60,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderColor: '#C0C0C0',
-        borderWidth: 1,
-    },
-    addTask: {},
-    starRating: {
-        top: 300,
-        width: windowWidth - 50,
-        left: 25,
-    },
-    setDateView: {
-        top: 180,
-        left: 25,
-        width: windowWidth - 50,
-    },
-    setDateButton: {
-        backgroundColor: '#f44ff4',
-        color: '#f44ff4',
-    }
-});
 
 export default AddTask;

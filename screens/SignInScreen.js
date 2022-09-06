@@ -1,8 +1,9 @@
 import React from 'react';
-import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Button, Text, TextInput, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {signInWithEmailAndPassword} from 'firebase/auth';
 import {auth} from "../config/firebase";
+import styles from '../utils/AppStyles';
 
 
 const SignInScreen = () => {
@@ -32,15 +33,15 @@ const SignInScreen = () => {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={styles.signContainer}>
             <Text>Signin screen!</Text>
 
-            {!!value.error && <View style={styles.error}><Text>{value.error}</Text></View>}
+            {!!value.error && <View style={{marginTop: 10, padding: 10}}><Text>{value.error}</Text></View>}
 
-            <View style={styles.controls}>
+            <View style={{flex: 1}}>
                 <TextInput
                     placeholder='Email'
-                    containerStyle={styles.control}
+                    containerStyle={{marginTop: 10}}
                     value={value.email}
                     onChangeText={(text) => setValue({...value, email: text})}
                     leftIcon={<Icon
@@ -51,7 +52,7 @@ const SignInScreen = () => {
 
                 <TextInput
                     placeholder='Password'
-                    containerStyle={styles.control}
+                    containerStyle={{marginTop: 10}}
                     value={value.password}
                     onChangeText={(text) => setValue({...value, password: text})}
                     secureTextEntry={true}
@@ -61,35 +62,10 @@ const SignInScreen = () => {
                     />}
                 />
 
-                <Button title="Sign in" buttonStyle={styles.control} onPress={signIn}/>
+                <Button title="Sign in" buttonStyle={{marginTop: 10}} onPress={signIn}/>
             </View>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingTop: 20,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-
-    controls: {
-        flex: 1,
-    },
-
-    control: {
-        marginTop: 10
-    },
-
-    error: {
-        marginTop: 10,
-        padding: 10,
-        // color: '#fff',
-        // backgroundColor: '#D54826FF',
-    }
-});
 
 export default SignInScreen;

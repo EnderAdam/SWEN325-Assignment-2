@@ -13,7 +13,7 @@ import {doc, updateDoc} from "firebase/firestore";
 import {db} from "../config/firebase";
 import StarRating from 'react-native-star-rating';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import styles from "../utils/styles";
+import appStyles from "../utils/AppStyles";
 
 
 
@@ -96,7 +96,7 @@ const EditTask = ({navigation, route}) => {
                     display={Platform.OS === 'ios' ? 'spinner' : 'default'}
                     is24Hour={true}
                     onChange={onDateSelected}
-                    style={styles.datePicker}
+                    style={appStyles.datePicker}
                 />
             )}
 
@@ -107,14 +107,14 @@ const EditTask = ({navigation, route}) => {
                     display={Platform.OS === 'ios' ? 'spinner' : 'default'}
                     is24Hour={false}
                     onChange={onTimeSelected}
-                    style={styles.datePicker}
+                    style={appStyles.datePicker}
                 />
             )}
 
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
-                style={styles.writeTaskWrapper}>
-                <TextInput style={styles.taskName} placeholder={'Write your task'}
+                style={appStyles.writeTaskWrapper}>
+                <TextInput style={appStyles.taskName} placeholder={'Write your task'}
                            value={task} onChangeText={text => setTask(text)}/>
                 <TouchableOpacity onPress={() => {
                     if (task !== '') {
@@ -123,30 +123,30 @@ const EditTask = ({navigation, route}) => {
                         });
                     }
                 }}>
-                    <View style={styles.addWrapper}>
-                        <Text style={styles.addTask}>Save</Text>
+                    <View style={appStyles.addWrapper}>
+                        <Text style={appStyles.addTask}>Save</Text>
                     </View>
                 </TouchableOpacity>
             </KeyboardAvoidingView>
-            <TextInput style={styles.description} placeholder={'Description'}
+            <TextInput style={appStyles.description} placeholder={'Description'}
                        value={details} onChangeText={text => setDetails(text)}/>
-            <View style={styles.setDateView}>
+            <View style={appStyles.setDateView}>
                 {route.params.task.isCompleted ? (
-                    <Text style={styles.date}>Completed Date = {shownDate}</Text>
+                    <Text style={appStyles.date}>Completed Date = {shownDate}</Text>
                 ) : (
-                    <Text style={styles.date}>Planned Date = {shownDate}</Text>
+                    <Text style={appStyles.date}>Planned Date = {shownDate}</Text>
                 )}
-                <Button style={styles.setDateButton} title={'Set Planned Date'}
+                <Button style={appStyles.setDateButton} title={'Set Planned Date'}
                         onPress={() => {
                             showDatePicker();
                         }
                         }>
                 </Button>
             </View>
-            <TextInput style={styles.people} placeholder={'People'}
+            <TextInput style={appStyles.people} placeholder={'People'}
                        value={people.join()} onChangeText={text => setPeople(text.replace(/\s/g, "").split(','))}/>
             <StarRating
-                containerStyle={styles.starRating}
+                containerStyle={appStyles.starRating}
                 disabled={false}
                 maxStars={5}
                 rating={stars}

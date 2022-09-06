@@ -1,15 +1,15 @@
 import React from 'react';
 import {NavigationContainer, useNavigationContainerRef} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Button, StyleSheet, TouchableOpacity, View} from "react-native";
+import {TouchableOpacity, View} from "react-native";
 import TasksScreen from "../screens/TasksScreen";
 import AddTask from "../screens/AddTask";
 import TaskView from "../screens/TaskView";
-import {auth} from "../config/firebase";
 import DateSelector from "../screens/DateSelector";
 import EditTask from "../screens/EditTask";
 import Icon from "react-native-vector-icons/FontAwesome";
 import SignOutScreen from "../screens/SignOutScreen";
+import AppStyles from "../utils/AppStyles";
 
 
 const Stack = createStackNavigator();
@@ -29,7 +29,7 @@ export default function UserStack() {
                         options={{
                             headerTitleAlign: 'center', title: 'Tasks',
                             headerRight: () => (
-                                <View style={styles.topRight}>
+                                <View style={AppStyles.topRightAddAndSort}>
                                     <TouchableOpacity onPress={() => navigationRef.navigate('Add a new Task')}>
                                         <Icon name='filter' size={24} color="black"
                                               style={{width: 24, height: 24, marginRight: 10}}/>
@@ -65,13 +65,3 @@ export default function UserStack() {
     );
 }
 
-
-const styles = StyleSheet.create({
-    topRight: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#fff'
-    },
-});

@@ -2,7 +2,7 @@ import {Button, Dimensions, ScrollView, TouchableOpacity, View} from "react-nati
 import TaskListView from "../components/TaskListView";
 import * as React from "react";
 import TaskView from "./TaskView";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import {collection, getDocs, query, where} from "firebase/firestore";
 import {auth, db} from "../config/firebase";
 
 const windowHeight = Dimensions.get('window').height;
@@ -32,7 +32,9 @@ const TasksScreen = ({navigation, route}) => {
     }
 
     if (isLoading) {
-        loadTasks().then(() => {setIsLoading(false)});
+        loadTasks().then(() => {
+            setIsLoading(false)
+        });
     }
 
     return (
