@@ -1,12 +1,4 @@
-import {
-    Button,
-    KeyboardAvoidingView,
-    Platform,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View
-} from "react-native";
+import {Button, KeyboardAvoidingView, Platform, Text, TextInput, TouchableOpacity, View} from "react-native";
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {doc, updateDoc} from "firebase/firestore";
@@ -14,7 +6,6 @@ import {db} from "../config/firebase";
 import StarRating from 'react-native-star-rating';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import appStyles from "../utils/AppStyles";
-
 
 
 const EditTask = ({navigation, route}) => {
@@ -34,6 +25,7 @@ const EditTask = ({navigation, route}) => {
     const [timePicker, setTimePicker] = useState(false);
     const [date, setDate] = useState(new Date());
     const [time, setTime] = useState(new Date());
+    const [errorMessage, setErrorMessage] = useState('');
 
 
     const onStarChange = (stars) => {
@@ -114,13 +106,18 @@ const EditTask = ({navigation, route}) => {
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={appStyles.writeTaskWrapper}>
-                <TextInput style={appStyles.taskName} placeholder={'Write your task'}
-                           value={task} onChangeText={text => setTask(text)}/>
+                <View>
+                    <TextInput style={appStyles.taskName} placeholder={'Write your task'}
+                               value={task} onChangeText={text => setTask(text)}/>
+                    <Text style={{color: "#ff0000"}}>{errorMessage}</Text>
+                </View>
                 <TouchableOpacity onPress={() => {
                     if (task !== '') {
                         updateTask(route.params.task.id, task, details, shownDate, people, stars).then(r => {
                             navigation.navigate('RemainingTasks', {refresh: true});
                         });
+                    } else {
+                        setErrorMessage('Task name cannot be empty');
                     }
                 }}>
                     <View style={appStyles.addWrapper}>
@@ -132,16 +129,25 @@ const EditTask = ({navigation, route}) => {
                        value={details} onChangeText={text => setDetails(text)}/>
             <View style={appStyles.setDateView}>
                 {route.params.task.isCompleted ? (
-                    <Text style={appStyles.date}>Completed Date = {shownDate}</Text>
+                    <View>
+                        <Text style={appStyles.date}>Completed Date = {shownDate}</Text>
+                        <Button style={appStyles.setDateButton} title={'Set Completed Date'}
+                                onPress={() => {
+                                    showDatePicker();
+                                }
+                                }/>
+                    </View>
                 ) : (
-                    <Text style={appStyles.date}>Planned Date = {shownDate}</Text>
+                    <View>
+                        <Text style={appStyles.date}>Planned Date = {shownDate}</Text>
+                        <Button style={appStyles.setDateButton} title={'Set Planned Date'}
+                                onPress={() => {
+                                    showDatePicker();
+                                }
+                                }/>
+                    </View>
                 )}
-                <Button style={appStyles.setDateButton} title={'Set Planned Date'}
-                        onPress={() => {
-                            showDatePicker();
-                        }
-                        }>
-                </Button>
+
             </View>
             <TextInput style={appStyles.people} placeholder={'People'}
                        value={people.join()} onChangeText={text => setPeople(text.replace(/\s/g, "").split(','))}/>

@@ -51,6 +51,7 @@ const appStyles = StyleSheet.create({
         alignItems: 'center',
         borderColor: '#C0C0C0',
         borderWidth: 1,
+        marginTop: -20,
     },
     starRating: {
         top: 300,
@@ -86,11 +87,13 @@ const appStyles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         marginBottom: 20,
+        flexWrap: 'wrap',
     },
     taskItemComponentFlex: {
         flexDirection: 'row',
         alignItems: 'center',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        width: '50%',
     },
     taskItemComponentCircle: {
         width: 24,
@@ -130,7 +133,15 @@ const appStyles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-    },
+    }, welcomeStyle: {
+        marginTop: 20,
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+
+    }
+
 });
 
 export default appStyles;
