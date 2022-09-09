@@ -9,7 +9,7 @@ const windowHeight = Dimensions.get('window').height;
 
 const TasksScreen = ({navigation, route}) => {
     const [tasks, setTasks] = React.useState([]);
-    let [isLoading, setIsLoading] = React.useState(true);
+    const [isLoading, setIsLoading] = React.useState(true);
     const [completedShown, setCompletedShown] = React.useState(false);
 
     if (route.params.refresh === true) {
@@ -45,7 +45,7 @@ const TasksScreen = ({navigation, route}) => {
             }}>
                 <View style={{flex: 0.5}}>
                     <Button
-                        color="#ff5f5f"
+                        color={completedShown ? "#ff5f5f" : "#33cc33"}
                         titleStyle={{fontSize: 66}}
                         title="Remaining"
                         onPress={() =>
@@ -55,6 +55,7 @@ const TasksScreen = ({navigation, route}) => {
                 </View>
                 <View style={{flex: 0.5}}>
                     <Button
+                        color={completedShown ? "#33cc33" : "#ff5f5f"}
                         title="Finished"
                         onPress={() =>
                             setCompletedShown(true)
@@ -69,7 +70,8 @@ const TasksScreen = ({navigation, route}) => {
                             return (
                                 <TouchableOpacity key={index}
                                                   onPress={() => navigation.navigate('TaskView', {task: item})}>
-                                    <TaskListView text={item.name}/>
+                                    <TaskListView name={item.name}
+                                                  date={item.isCompleted ? item.completedDate : item.plannedDate}/>
                                 </TouchableOpacity>
                             );
                         }
