@@ -1,9 +1,9 @@
 import React from 'react';
-import {Button, Text, TextInput, View} from 'react-native';
+import {Text, View} from 'react-native';
+import {Button, Input} from "react-native-elements";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {createUserWithEmailAndPassword} from 'firebase/auth';
 import {auth} from "../config/firebase";
-import styles from '../utils/AppStyles';
 
 const SignUpScreen = ({navigation}) => {
     const [value, setValue] = React.useState({
@@ -25,21 +25,38 @@ const SignUpScreen = ({navigation}) => {
             await createUserWithEmailAndPassword(auth, value.email, value.password);
             navigation.navigate('Sign In');
         } catch (error) {
-            setValue({
-                ...value,
-                error: error.message,
-            })
+            if (error.code === 'auth/email-already-in-use') {
+                setValue({
+                    ...value,
+                    error: 'Email already in use.'
+                })
+            } else if (error.code === 'auth/invalid-email') {
+                setValue({
+                    ...value,
+                    error: 'Invalid email.'
+                })
+            } else if (error.code === 'auth/weak-password') {
+                setValue({
+                    ...value,
+                    error: 'Weak password.'
+                })
+            } else {
+                setValue({
+                    ...value,
+                    error: error.message,
+                })
+            }
         }
     }
 
     return (
-        <View style={styles.signContainer}>
+        <View>
             <Text>Signup screen!</Text>
 
             {!!value.error && <View style={{marginTop: 10, padding: 10}}><Text>{value.error}</Text></View>}
 
-            <View style={{flex: 1}}>
-                <TextInput
+            <View>
+                <Input
                     placeholder='Email'
                     containerStyle={{marginTop: 10}}
                     value={value.email}
@@ -50,7 +67,7 @@ const SignUpScreen = ({navigation}) => {
                     />}
                 />
 
-                <TextInput
+                <Input
                     placeholder='Password'
                     containerStyle={{marginTop: 10}}
                     value={value.password}

@@ -1,9 +1,9 @@
 import React from 'react';
-import {Button, Text, TextInput, View} from 'react-native';
+import {Text, View} from 'react-native';
+import {Button, Input} from "react-native-elements";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {signInWithEmailAndPassword} from 'firebase/auth';
 import {auth} from "../config/firebase";
-import styles from '../utils/AppStyles';
 
 
 const SignInScreen = () => {
@@ -25,21 +25,33 @@ const SignInScreen = () => {
         try {
             await signInWithEmailAndPassword(auth, value.email, value.password);
         } catch (error) {
-            setValue({
-                ...value,
-                error: error.message,
-            })
+            if (error.code === 'auth/user-not-found') {
+                setValue({
+                    ...value,
+                    error: 'User not found.'
+                })
+            } else if (error.code === 'auth/wrong-password') {
+                setValue({
+                    ...value,
+                    error: 'Wrong password.'
+                })
+            } else {
+                setValue({
+                    ...value,
+                    error: error.message,
+                })
+            }
         }
     }
 
     return (
-        <View style={styles.signContainer}>
-            <Text>Signin screen!</Text>
+        <View>
+            <Text>Sign in screen!</Text>
 
             {!!value.error && <View style={{marginTop: 10, padding: 10}}><Text>{value.error}</Text></View>}
 
-            <View style={{flex: 1}}>
-                <TextInput
+            <View>
+                <Input
                     placeholder='Email'
                     containerStyle={{marginTop: 10}}
                     value={value.email}
@@ -50,7 +62,7 @@ const SignInScreen = () => {
                     />}
                 />
 
-                <TextInput
+                <Input
                     placeholder='Password'
                     containerStyle={{marginTop: 10}}
                     value={value.password}
