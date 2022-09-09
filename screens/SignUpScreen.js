@@ -2,8 +2,7 @@ import React from 'react';
 import {Text, View} from 'react-native';
 import {Button, Input} from "react-native-elements";
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {createUserWithEmailAndPassword} from 'firebase/auth';
-import {auth} from "../config/firebase";
+import {signUp} from "../utils/AuthenticationController";
 
 const SignUpScreen = ({navigation}) => {
     const [value, setValue] = React.useState({
@@ -12,46 +11,9 @@ const SignUpScreen = ({navigation}) => {
         error: ''
     })
 
-    async function signUp() {
-        if (value.email === '' || value.password === '') {
-            setValue({
-                ...value,
-                error: 'Email and password are mandatory.'
-            })
-            return;
-        }
-
-        try {
-            await createUserWithEmailAndPassword(auth, value.email, value.password);
-            navigation.navigate('Sign In');
-        } catch (error) {
-            if (error.code === 'auth/email-already-in-use') {
-                setValue({
-                    ...value,
-                    error: 'Email already in use.'
-                })
-            } else if (error.code === 'auth/invalid-email') {
-                setValue({
-                    ...value,
-                    error: 'Invalid email.'
-                })
-            } else if (error.code === 'auth/weak-password') {
-                setValue({
-                    ...value,
-                    error: 'Weak password.'
-                })
-            } else {
-                setValue({
-                    ...value,
-                    error: error.message,
-                })
-            }
-        }
-    }
 
     return (
         <View>
-            <Text>Signup screen!</Text>
 
             {!!value.error && <View style={{marginTop: 10, padding: 10}}><Text>{value.error}</Text></View>}
 
@@ -79,7 +41,7 @@ const SignUpScreen = ({navigation}) => {
                     />}
                 />
 
-                <Button title="Sign up" buttonStyle={{marginTop: 10}} onPress={signUp}/>
+                <Button title="Sign up" buttonStyle={{marginTop: 10}} onPress={() => signUp(value, setValue, navigation)}/>
             </View>
         </View>
     );
