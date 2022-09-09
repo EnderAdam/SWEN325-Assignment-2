@@ -3,12 +3,12 @@ import * as React from "react";
 import {useState} from "react";
 import StarRating from 'react-native-star-rating';
 import styles from "../utils/AppStyles";
-import {addTaskToDatabase} from "../utils/Controller";
-import DateTimePicker from "@react-native-community/datetimepicker";
 import appStyles from "../utils/AppStyles";
+import {addTaskToDatabase, onDateSelected, onTimeSelected} from "../utils/Controller";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 
-const AddTask = ({navigation, route}) => {
+const AddTask = ({navigation}) => {
     const [task, setTask] = useState('');
     const [details, setDetails] = useState('');
     const [plannedDate, setPlannedDate] = useState("Not Set Yet");
@@ -20,28 +20,6 @@ const AddTask = ({navigation, route}) => {
     const [date, setDate] = useState(new Date());
     const [time, setTime] = useState(new Date());
 
-
-    if (route.params.date !== null) {
-        setPlannedDate(route.params.date + ' ' + route.params.time);
-        route.params.date = null;
-    }
-
-    const onStarChange = (stars) => {
-        setStars(stars);
-    }
-
-    function onDateSelected(event, value) {
-        setDate(value);
-        setDatePicker(false);
-        setTimePicker(true);
-    }
-
-    function onTimeSelected(event, value) {
-        setTimePicker(false);
-        setPlannedDate(date.toDateString() + ' ' + value.toLocaleTimeString("en-US"));
-    }
-
-
     return (
         <View>
             {datePicker && (
@@ -50,7 +28,7 @@ const AddTask = ({navigation, route}) => {
                     mode={'date'}
                     display={Platform.OS === 'ios' ? 'spinner' : 'default'}
                     is24Hour={true}
-                    onChange={onDateSelected}
+                    onChange={(event, value) => onDateSelected(event, value, setDate, setDatePicker, setTimePicker)}
                     style={appStyles.datePicker}
                 />
             )}
@@ -61,7 +39,7 @@ const AddTask = ({navigation, route}) => {
                     mode={'time'}
                     display={Platform.OS === 'ios' ? 'spinner' : 'default'}
                     is24Hour={false}
-                    onChange={onTimeSelected}
+                    onChange={(event, value) => onTimeSelected(event, value, setTimePicker, setPlannedDate, date)}
                     style={appStyles.datePicker}
                 />
             )}
@@ -105,7 +83,7 @@ const AddTask = ({navigation, route}) => {
                 disabled={false}
                 maxStars={5}
                 rating={stars}
-                selectedStar={onStarChange}
+                selectedStar={(rating) => setStars(rating)}
             />
         </View>
     );

@@ -30,7 +30,7 @@ export default function UserStack() {
                             headerRight: () => (
                                 <View style={AppStyles.topRightAddAndSort}>
                                     <TouchableOpacity
-                                        onPress={() => navigationRef.navigate('Add a new Task', {date: null})}>
+                                        onPress={() => navigationRef.navigate('Add a new Task')}>
                                         <Icon name='plus' size={24} color="black"
                                               style={{width: 24, height: 24, marginRight: 10}}/>
                                     </TouchableOpacity>

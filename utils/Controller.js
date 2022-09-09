@@ -19,4 +19,15 @@ const addTaskToDatabase = async (task, details, plannedDate, completedDate, peop
     }
 }
 
-export {addTaskToDatabase};
+function onDateSelected(event, value, setDate, setDatePicker, setTimePicker) {
+    setDate(value);
+    setDatePicker(false);
+    setTimePicker(true);
+}
+
+function onTimeSelected(event, value, setTimePicker, setPlannedDate, date) {
+    setTimePicker(false);
+    setPlannedDate(date.toDateString() + ' ' + value.toLocaleTimeString("en-US"));
+}
+
+export {addTaskToDatabase, onDateSelected, onTimeSelected};
