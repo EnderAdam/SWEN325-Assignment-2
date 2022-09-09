@@ -1,11 +1,10 @@
 import {Button, KeyboardAvoidingView, Platform, Text, TextInput, TouchableOpacity, View} from "react-native";
 import * as React from "react";
 import {useEffect, useState} from "react";
-import {doc, updateDoc} from "firebase/firestore";
-import {db} from "../config/firebase";
 import StarRating from 'react-native-star-rating';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import appStyles from "../utils/AppStyles";
+import {onDateSelected, onTimeSelected, updateTask} from "../utils/Controller";
 
 
 const EditTask = ({navigation, route}) => {
@@ -28,49 +27,6 @@ const EditTask = ({navigation, route}) => {
     const [errorMessage, setErrorMessage] = useState('');
 
 
-    const onStarChange = (stars) => {
-        setStars(stars);
-    }
-
-
-    let updateTask = async (taskID, task, details, date, people, stars) => {
-        try {
-            const docRef = doc(db, "tasks", taskID);
-            if (route.params.task.completedDate === 'Not completed') {
-                await updateDoc(docRef, {
-                    name: task,
-                    details: details,
-                    plannedDate: date,
-                    people: people,
-                    stars: stars
-                });
-            } else {
-                await updateDoc(docRef, {
-                    name: task,
-                    details: details,
-                    completedDate: date,
-                    people: people,
-                    stars: stars
-                });
-            }
-            console.log("Document updated with ID: ", taskID);
-        } catch (e) {
-            console.error("Error updating document: ", e);
-        }
-
-    }
-
-    function onDateSelected(event, value) {
-        setDate(value);
-        setDatePicker(false);
-        setTimePicker(true);
-    }
-
-    function onTimeSelected(event, value) {
-        setTimePicker(false);
-        setShownDate(date.toDateString() + ' ' + value.toLocaleTimeString("en-US"));
-    }
-
     return (
         <View>
             {datePicker && (
@@ -79,7 +35,8 @@ const EditTask = ({navigation, route}) => {
                     mode={'date'}
                     display={Platform.OS === 'ios' ? 'spinner' : 'default'}
                     is24Hour={true}
-                    onChange={onDateSelected}
+                    onChange={(event, value) =>
+                        onDateSelected(event, value, setDate, setDatePicker, setTimePicker)}
                     style={appStyles.datePicker}
                 />
             )}
@@ -90,7 +47,8 @@ const EditTask = ({navigation, route}) => {
                     mode={'time'}
                     display={Platform.OS === 'ios' ? 'spinner' : 'default'}
                     is24Hour={false}
-                    onChange={onTimeSelected}
+                    onChange={(event, value) =>
+                        onTimeSelected(event, value, setTimePicker, setShownDate, date)}
                     style={appStyles.datePicker}
                 />
             )}
@@ -105,7 +63,7 @@ const EditTask = ({navigation, route}) => {
                 </View>
                 <TouchableOpacity onPress={() => {
                     if (task !== '') {
-                        updateTask(route.params.task.id, task, details, shownDate, people, stars).then(r => {
+                        updateTask(route.params.task.id, task, details, shownDate, people, stars, route.params.task.completedDate).then(r => {
                             navigation.navigate('RemainingTasks', {refresh: true});
                         });
                     } else {
@@ -142,7 +100,7 @@ const EditTask = ({navigation, route}) => {
                 disabled={false}
                 maxStars={5}
                 rating={stars}
-                selectedStar={onStarChange}
+                selectedStar={(rating) => setStars(rating)}
             />
         </View>
     );

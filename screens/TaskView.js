@@ -1,8 +1,8 @@
-import {Button, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Button, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import React, {useEffect} from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
-import {deleteDoc, doc, updateDoc} from "firebase/firestore";
-import {db} from "../config/firebase";
+import {completeTask, deleteTask, uncompleteTask} from "../utils/Controller";
+import styles from '../utils/AppStyles';
 
 
 const TaskView = ({navigation, route}) => {
@@ -21,36 +21,6 @@ const TaskView = ({navigation, route}) => {
         });
     }, [route.params.task.name]);
 
-    let deleteTask = async (taskId) => {
-        await deleteDoc(doc(db, "tasks", taskId));
-        navigation.navigate('RemainingTasks', {refresh: true});
-    }
-
-    /**
-     *  Update the task's status to completed
-     *  Set the completedDate to the current time and date
-     * @param taskId
-     * @returns {Promise<void>}
-     */
-    let completeTask = async (taskId) => {
-        const task = await doc(db, "tasks", taskId);
-        await updateDoc(task, {completedDate: new Date().toDateString() + ' ' + new Date().toLocaleTimeString()});
-        await updateDoc(task, {isCompleted: true});
-        navigation.navigate('RemainingTasks', {refresh: true});
-    }
-
-    /**
-     *  Update the task's status to not completed
-     *  Remove the completedDate
-     * @param taskId
-     * @returns {Promise<void>}
-     */
-    let uncompleteTask = async (taskId) => {
-        const task = await doc(db, "tasks", taskId);
-        await updateDoc(task, {completedDate: "Not completed"});
-        await updateDoc(task, {isCompleted: false});
-        navigation.navigate('RemainingTasks', {refresh: true});
-    }
 
     return (
         <ScrollView>
@@ -85,18 +55,18 @@ const TaskView = ({navigation, route}) => {
             <View style={styles.TaskViewBottomLine}>
                 <View style={styles.taskViewButtons}>
                     <Button title={'Delete Task'}
-                            onPress={() => deleteTask(route.params.task.id)}/>
+                            onPress={() => deleteTask(route.params.task.id, navigation)}/>
                 </View>
                 {!route.params.task.isCompleted ? (
 
                     <View style={styles.taskViewButtons}>
                         <Button style={styles.taskViewButtons} title={'Complete Task'}
-                                onPress={() => completeTask(route.params.task.id)}/>
+                                onPress={() => completeTask(route.params.task.id, navigation)}/>
                     </View>
                 ) : (
                     <View style={styles.taskViewButtons}>
                         <Button style={styles.taskViewButtons} title={'Uncomplete Task'}
-                                onPress={() => uncompleteTask(route.params.task.id)}/>
+                                onPress={() => uncompleteTask(route.params.task.id, navigation)}/>
                     </View>
                 )}
             </View>
@@ -106,37 +76,3 @@ const TaskView = ({navigation, route}) => {
 
 
 export default TaskView;
-
-const styles = StyleSheet.create({
-    iconLine: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 16,
-        marginTop: 16
-    },
-    TaskIconTexts: {
-        fontSize: 16,
-        flexWrap: 'wrap',
-        width: '85%',
-    },
-    editIcon: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#fff'
-    },
-    TaskViewBottomLine: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 16,
-        marginTop: 16,
-    },
-    taskViewButtons: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
-});

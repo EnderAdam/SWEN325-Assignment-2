@@ -139,7 +139,37 @@ const appStyles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'flex-start',
         justifyContent: 'center',
-
+    },
+    iconLine: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 16,
+        marginTop: 16
+    },
+    TaskIconTexts: {
+        fontSize: 16,
+        flexWrap: 'wrap',
+        width: '85%',
+    },
+    editIcon: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#fff'
+    },
+    TaskViewBottomLine: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 16,
+        marginTop: 16,
+    },
+    taskViewButtons: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 
 });

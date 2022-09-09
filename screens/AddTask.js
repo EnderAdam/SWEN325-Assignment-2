@@ -28,7 +28,8 @@ const AddTask = ({navigation}) => {
                     mode={'date'}
                     display={Platform.OS === 'ios' ? 'spinner' : 'default'}
                     is24Hour={true}
-                    onChange={(event, value) => onDateSelected(event, value, setDate, setDatePicker, setTimePicker)}
+                    onChange={(event, value) =>
+                        onDateSelected(event, value, setDate, setDatePicker, setTimePicker)}
                     style={appStyles.datePicker}
                 />
             )}
@@ -39,7 +40,8 @@ const AddTask = ({navigation}) => {
                     mode={'time'}
                     display={Platform.OS === 'ios' ? 'spinner' : 'default'}
                     is24Hour={false}
-                    onChange={(event, value) => onTimeSelected(event, value, setTimePicker, setPlannedDate, date)}
+                    onChange={(event, value) =>
+                        onTimeSelected(event, value, setTimePicker, setPlannedDate, date)}
                     style={appStyles.datePicker}
                 />
             )}
