@@ -32,10 +32,6 @@ const EditTask = ({navigation, route}) => {
         setStars(stars);
     }
 
-    function showDatePicker() {
-        setDatePicker(true);
-    }
-
 
     let updateTask = async (taskID, task, details, date, people, stars) => {
         try {
@@ -67,10 +63,6 @@ const EditTask = ({navigation, route}) => {
     function onDateSelected(event, value) {
         setDate(value);
         setDatePicker(false);
-        showTimePicker();
-    }
-
-    function showTimePicker() {
         setTimePicker(true);
     }
 
@@ -121,7 +113,7 @@ const EditTask = ({navigation, route}) => {
                     }
                 }}>
                     <View style={appStyles.addWrapper}>
-                        <Text style={appStyles.addTask}>Save</Text>
+                        <Text>Save</Text>
                     </View>
                 </TouchableOpacity>
             </KeyboardAvoidingView>
@@ -132,19 +124,13 @@ const EditTask = ({navigation, route}) => {
                     <View>
                         <Text style={appStyles.date}>Completed Date = {shownDate}</Text>
                         <Button style={appStyles.setDateButton} title={'Set Completed Date'}
-                                onPress={() => {
-                                    showDatePicker();
-                                }
-                                }/>
+                                onPress={() => setDatePicker(true)}/>
                     </View>
                 ) : (
                     <View>
                         <Text style={appStyles.date}>Planned Date = {shownDate}</Text>
                         <Button style={appStyles.setDateButton} title={'Set Planned Date'}
-                                onPress={() => {
-                                    showDatePicker();
-                                }
-                                }/>
+                                onPress={() => setDatePicker(true)}/>
                     </View>
                 )}
 

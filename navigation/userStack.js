@@ -5,7 +5,6 @@ import {TouchableOpacity, View} from "react-native";
 import TasksScreen from "../screens/TasksScreen";
 import AddTask from "../screens/AddTask";
 import TaskView from "../screens/TaskView";
-import DateSelector from "../screens/DateSelector";
 import EditTask from "../screens/EditTask";
 import Icon from "react-native-vector-icons/FontAwesome";
 import SignOutScreen from "../screens/SignOutScreen";
@@ -49,8 +48,6 @@ export default function UserStack() {
                     <Stack.Screen name='Add a new Task' component={AddTask}/>
                     <Stack.Screen name='TaskView' component={TaskView}
                                   options={{title: TaskView.name, headerTitleAlign: 'center'}}/>
-                    <Stack.Screen name='Date Selector' component={DateSelector}
-                                  options={{title: 'Planned/Due Date', headerTitleAlign: 'center'}}/>
                     <Stack.Screen name='Edit Task' component={EditTask}
                                   options={{headerTitleAlign: 'center'}}/>
                     <Stack.Screen name='SignOut' component={SignOutScreen}
