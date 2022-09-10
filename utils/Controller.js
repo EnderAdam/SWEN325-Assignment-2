@@ -23,7 +23,6 @@ const addTaskToDatabase = async (task, details, plannedDate, completedDate, peop
             isCompleted: false,
             userId: auth.currentUser.uid
         });
-        console.log("Document written with ID: ", docRef.id);
     } catch (e) {
         console.error("Error adding document: ", e);
     }
@@ -87,7 +86,6 @@ const updateTask = async (taskID, task, details, date, people, stars, isComplete
                 stars: stars
             });
         }
-        console.log("Document updated with ID: ", taskID);
     } catch (e) {
         console.error("Error updating document: ", e);
     }

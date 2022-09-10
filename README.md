@@ -18,4 +18,4 @@ Tarik Hasan Kurnaz
 7. Run `expo start` to start the project
 8. There will be a QR code on the terminal, scan it with your phone to run the app. 
 9. The QR code will work for IOS camera app, but for Android you need to download the Expo Go app from the play store. (https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en&gl=US)
-10. The app will run on your phone and you can use it.
+10. The app will run on your phone, and you can use it.

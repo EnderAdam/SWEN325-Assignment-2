@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
  * The screens are: Welcome, SignIn, SignUp.
  *  - WelcomeScreen is the welcome screen.
  *  - SignInScreen is the sign in screen.
- *  - SignUpScreen is the sign up screen.
+ *  - SignUpScreen is the sign-up screen.
  *  - The screens are wrapped in a NavigationContainer.
  * @returns {JSX.Element} The stack navigator for the authentication screens.
  * @constructor AuthStack
