@@ -6,15 +6,16 @@ Tarik Hasan Kurnaz
 
 ## How to Run the Program
 
-1. Install expo on your computer using the following command:
+1. Download and install Node.js and npm from https://nodejs.org/en/download/
+2. Install expo on your computer using the following command:
 ```npm install --global expo-cli```
-2. If you have an expo account you can login using the following command:
+3. If you have an expo account you can login using the following command:
 ```expo login``` if not you can create one using the following command:
 ```expo register```
-3. Clone this repository
-4. Open a terminal in the root directory of the project
-5. Run `npm install` to install the dependencies
-6. Run `expo start` to start the project
-7. There will be a QR code on the terminal, scan it with your phone to run the app. 
-8. The QR code will work for IOS camera app, but for Android you need to download the Expo Go app from the play store. (https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en&gl=US)
-9. The app will run on your phone and you can use it.
+4. Clone this repository
+5. Open a terminal in the root directory of the project
+6. Run `npm install` to install the dependencies
+7. Run `expo start` to start the project
+8. There will be a QR code on the terminal, scan it with your phone to run the app. 
+9. The QR code will work for IOS camera app, but for Android you need to download the Expo Go app from the play store. (https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en&gl=US)
+10. The app will run on your phone and you can use it.
