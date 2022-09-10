@@ -1,6 +1,6 @@
 # SWEN3252022A2
-Swen 325 Assignment 2 - 2022
-Tarik Hasan Kurnaz
+Swen 325 Assignment 2 - 2022\
+Tarik Hasan Kurnaz\
 300486204 - kurnaztari
 
 
