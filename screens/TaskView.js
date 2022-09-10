@@ -4,10 +4,16 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import {completeTask, deleteTask, uncompleteTask} from "../utils/Controller";
 import styles from '../utils/AppStyles';
 
-
+/**
+ * This component is used to display a single task.
+ * @param navigation - The navigation object used to navigate between screens.
+ * @param route - The route object used to pass data between screens. In this case, the task object.
+ * @returns {JSX.Element} - The JSX element to be rendered.
+ * @constructor - The TaskView component.
+ */
 const TaskView = ({navigation, route}) => {
 
-    useEffect(() => {
+    useEffect(() => { // This is used to update the header title. And to add an edit button on the top right.
         navigation.setOptions({
             title: route.params.task.name,
             headerRight: () => (
@@ -26,22 +32,22 @@ const TaskView = ({navigation, route}) => {
         <ScrollView>
             <View style={styles.iconLine}>
                 <Icon name='info-circle' size={24} color="black"
-                      style={{width: 24, height: 24, marginRight: 10, marginLeft: 10}}/>
+                      style={styles.icon}/>
                 <Text style={styles.TaskIconTexts}>Details: {route.params.task.details}</Text>
             </View>
             <View style={styles.iconLine}>
                 <Icon name='calendar' size={24} color="black"
-                      style={{width: 24, height: 24, marginRight: 10, marginLeft: 10}}/>
+                      style={styles.icon}/>
                 <Text style={styles.TaskIconTexts}>Planned/Due Date: {route.params.task.plannedDate}</Text>
             </View>
             <View style={styles.iconLine}>
                 <Icon name='calendar' size={24} color="black"
-                      style={{width: 24, height: 24, marginRight: 10, marginLeft: 10}}/>
+                      style={styles.icon}/>
                 <Text style={styles.TaskIconTexts}>Completed Date: {route.params.task.completedDate}</Text>
             </View>
             <View style={styles.iconLine}>
                 <Icon name='users' size={24} color="black"
-                      style={{width: 24, height: 24, marginRight: 10, marginLeft: 10}}/>
+                      style={styles.icon}/>
                 <Text style={styles.TaskIconTexts}>
                     People: {route.params.task.people.map((e) => (e.toString() + ", ")).join("").slice(0, -2)}
                     {/*Removes the final whitespace and comma*/}
@@ -49,7 +55,7 @@ const TaskView = ({navigation, route}) => {
             </View>
             <View style={styles.iconLine}>
                 <Icon name='star' size={24} color="black"
-                      style={{width: 24, height: 24, marginRight: 10, marginLeft: 10}}/>
+                      style={styles.icon}/>
                 <Text style={styles.TaskIconTexts}>Stars: {route.params.task.stars}/5</Text>
             </View>
             <View style={styles.TaskViewBottomLine}>
@@ -57,6 +63,7 @@ const TaskView = ({navigation, route}) => {
                     <Button title={'Delete Task'}
                             onPress={() => deleteTask(route.params.task.id, navigation)}/>
                 </View>
+                {/* If the task is completed, show the uncomplete button. Otherwise, show the complete button. */}
                 {!route.params.task.isCompleted ? (
 
                     <View style={styles.taskViewButtons}>

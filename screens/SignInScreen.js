@@ -4,8 +4,13 @@ import {Button, Input} from "react-native-elements";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {signIn} from "../utils/AuthenticationController";
 
-
+/**
+ * This is the sign in screen for the application. It allows the user to sign in to the application.
+ * @returns {JSX.Element} The sign in screen.
+ * @constructor The sign in screen.
+ */
 const SignInScreen = () => {
+    // The state of the sign in screen.
     const [value, setValue] = React.useState({
         email: '',
         password: '',
@@ -16,9 +21,11 @@ const SignInScreen = () => {
         <View>
 
             {!!value.error && <View style={{marginTop: 10, padding: 10}}><Text>{value.error}</Text></View>}
+            {/*If there is an error, display it.*/}
 
             <View>
                 <Input
+                    // The email input.
                     placeholder='Email'
                     containerStyle={{marginTop: 10}}
                     value={value.email}
@@ -30,6 +37,7 @@ const SignInScreen = () => {
                 />
 
                 <Input
+                    // The password input.
                     placeholder='Password'
                     containerStyle={{marginTop: 10}}
                     value={value.password}
@@ -41,7 +49,8 @@ const SignInScreen = () => {
                     />}
                 />
 
-                <Button title="Sign in" buttonStyle={{marginTop: 10}} onPress={() => signIn(value, setValue)}/>
+                <Button // The sign-in button.
+                    title="Sign in" buttonStyle={{marginTop: 10}} onPress={() => signIn(value, setValue)}/>
             </View>
         </View>
     );

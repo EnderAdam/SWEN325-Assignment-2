@@ -8,7 +8,7 @@ import AuthStack from './authStack';
  * It is composed of the AuthStack and the UserStack
  * Only one stack is visible at a time depending on the authentication state.
  * @returns {JSX.Element} The stack navigator for the entire application.
- * @constructor
+ * @constructor RootStack
  */
 export default function RootNavigation() {
     const {user} = useAuthentication();

@@ -1,7 +1,10 @@
 import {Dimensions, StyleSheet} from "react-native";
 
-const windowWidth = Dimensions.get('window').width;
+const windowWidth = Dimensions.get('window').width; // This is the width of the screen
 
+/**
+ * These are the styles for the app
+ */
 const appStyles = StyleSheet.create({
     writeTaskWrapper: {
         position: 'absolute',
@@ -170,6 +173,12 @@ const appStyles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    icon: {
+        width: 24,
+        height: 24,
+        marginRight: 10,
+        marginLeft: 10
     }
 
 });

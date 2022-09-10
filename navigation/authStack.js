@@ -12,8 +12,11 @@ const Stack = createStackNavigator();
  * AuthStack is the stack navigator for the authentication screens.
  * The screens are: Welcome, SignIn, SignUp.
  *  - WelcomeScreen is the welcome screen.
+ *  - SignInScreen is the sign in screen.
+ *  - SignUpScreen is the sign up screen.
+ *  - The screens are wrapped in a NavigationContainer.
  * @returns {JSX.Element} The stack navigator for the authentication screens.
- * @constructor
+ * @constructor AuthStack
  */
 export default function AuthStack() {
     return (
